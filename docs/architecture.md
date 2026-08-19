@@ -47,4 +47,22 @@ An exact completed replay can return a safe cached result without creating anoth
 
 A timeout after a create operation does not prove that the destination rejected the record. Automatically retrying could create a duplicate. The adapter therefore returns an uncertain result, and the Core leaves the request held for reconciliation.
 
+## Request paths
+
+| Condition | Component decision | Durable effect |
+| --- | --- | --- |
+| Required data missing or malformed | Core returns `MISSING_DATA` or `INVALID_INPUT` | No ledger claim and no CRM call |
+| Completed ledger entry with the same payload | Core returns the cached result | No adapter call and no new CRM row |
+| Same request ID with a changed payload | Core returns `REQUEST_ID_CONFLICT` | No adapter call and no new CRM row |
+| Unfinished or unsafe ledger state | Core returns `RECOVERY_REQUIRED` | Existing claim remains for reconciliation |
+| Valid new request | Core writes an `IN_PROGRESS` claim, then calls the adapter | One adapter call |
+| Adapter finds the exact request and matching payload | Adapter returns `REPLAYED` | No new CRM row |
+| Adapter finds the request ID with a different payload | Adapter returns a safe rejection | No new CRM row |
+| Adapter finds the normalized email under another request | Adapter returns `DUPLICATE` | No new CRM row |
+| Adapter finds no request or email match | Adapter inserts one RAW row into `LEADS` | One new CRM row |
+| Lookup fails before any write | Adapter returns a safe rejection | Core records a safe CRM error |
+| Row creation may have succeeded but is not confirmed | Adapter returns `UNCERTAIN` | Core leaves the claim unfinished and requires recovery |
+
+Confirmed `CREATED`, `DUPLICATE`, `REPLAYED`, and safely rejected results are finalized in the ledger before the Core returns. Unknown or uncertain adapter results are not finalized and are never marked safe for an automatic retry.
+
 See [Safety and recovery](safety-and-recovery.md) for the operator procedure.

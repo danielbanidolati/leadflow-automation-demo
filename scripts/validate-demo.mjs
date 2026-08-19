@@ -168,6 +168,22 @@ assert(
   "Public text files contain no em dashes",
 );
 
+const architectureText = `${readText("README.md")}\n${readText("docs/architecture.md")}`;
+const requiredArchitectureTerms = [
+  "Make Data Store",
+  "payload hash",
+  "request ID",
+  "normalized email",
+  "RAW",
+  "IN_PROGRESS",
+  "RECOVERY_REQUIRED",
+  "UNCERTAIN",
+];
+assert(
+  requiredArchitectureTerms.every((term) => architectureText.includes(term)),
+  "Architecture documentation covers ledger, lookup, write, and recovery paths",
+);
+
 if (failures.length) {
   process.stderr.write(`\n${failures.length} validation failure(s):\n`);
   failures.forEach((message) => process.stderr.write(`FAIL  ${message}\n`));
