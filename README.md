@@ -23,16 +23,27 @@ A sanitized Make.com demonstration for receiving leads, validating and normalizi
 
 ```mermaid
 flowchart LR
-    A[Website or form] --> B[Lead Intake Core]
-    B --> C{Validation}
-    C -->|Missing or invalid| D[Safe result, no CRM write]
-    C -->|Valid| E[Request ledger]
-    E -->|Replay or conflict| F[Cached or blocked result]
-    E -->|New request| G[CRM adapter]
-    G --> H[Google Sheets CRM Lite]
-    G --> I{Write result}
-    I -->|Confirmed| J[Complete ledger and return]
-    I -->|Uncertain| K[Recovery required, no blind retry]
+    A[Website or form] --> B[Typed Make input or optional wrapper]
+    B --> C[Normalize and validate]
+    C -->|Missing or invalid| R0[Safe typed result, no CRM write]
+    C -->|Valid| D[Build payload hash and namespaced key]
+    D --> E{Make Data Store ledger}
+    E -->|Completed, same payload| R1[Return cached replay]
+    E -->|Same ID, changed payload| R2[Return request conflict]
+    E -->|Unfinished or unsafe state| R3[Return recovery required]
+    E -->|New request| F[Claim IN_PROGRESS]
+    F --> G[Call scoped CRM adapter]
+    G --> H[Validate fixed config and contract]
+    H --> I{Exact request ID lookup}
+    I -->|Match| J[Replay, conflict or safe reject]
+    I -->|No match| K{Normalized email lookup}
+    K -->|Match| L[Duplicate or safe reject]
+    K -->|No match| M[Insert one RAW row in Google Sheets]
+    J --> N{Adapter result}
+    L --> N
+    M --> N
+    N -->|Confirmed or safely rejected| O[Complete ledger and return typed result]
+    N -->|Uncertain write| P[Leave claim unfinished and require recovery]
 ```
 
 The Core handles validation, normalization, idempotency, and result handling. The adapter owns the destination-specific work. A different CRM can replace the Google Sheets adapter without rebuilding the Core.
