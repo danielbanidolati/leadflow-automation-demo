@@ -1,0 +1,34 @@
+{
+  "notice": "Expected development behavior, not recorded production evidence.",
+  "outcomes": [
+    {
+      "case": "valid_unique",
+      "outcome": "APPROVED",
+      "committed": true,
+      "replayed": false,
+      "new_rows": 1
+    },
+    {
+      "case": "needs_review",
+      "outcome": "NEEDS_REVIEW",
+      "committed": true,
+      "replayed": false,
+      "new_rows": 1
+    },
+    {
+      "case": "missing_name",
+      "outcome": "MISSING_DATA",
+      "committed": false,
+      "replayed": false,
+      "new_rows": 0
+    },
+    {
+      "case": "formula_literal",
+      "outcome": "APPROVED",
+      "committed": true,
+      "stored_message": "=1+1",
+      "formula_count_delta": 0,
+      "new_rows": 1
+    }
+  ]
+}

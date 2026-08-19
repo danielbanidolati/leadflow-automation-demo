@@ -1,0 +1,45 @@
+{
+  "notice": "Synthetic examples only. Reserved .test domains are used intentionally.",
+  "requests": [
+    {
+      "case": "valid_unique",
+      "request_id": "demo-valid-001",
+      "name": "Ada Example",
+      "email": "ada@example.test",
+      "phone": "+32 470 00 00 01",
+      "message": "Synthetic quote request",
+      "source": "portfolio-demo",
+      "submitted_at": "2026-08-19T08:00:00Z"
+    },
+    {
+      "case": "needs_review",
+      "request_id": "demo-review-001",
+      "name": "Sam Example",
+      "email": "sam@example.test",
+      "phone": "123",
+      "message": "Synthetic request with a short phone number",
+      "source": "portfolio-demo",
+      "submitted_at": "2026-08-19T08:01:00Z"
+    },
+    {
+      "case": "missing_name",
+      "request_id": "demo-missing-001",
+      "name": "",
+      "email": "missing@example.test",
+      "phone": "",
+      "message": "Synthetic missing-name request",
+      "source": "portfolio-demo",
+      "submitted_at": "2026-08-19T08:02:00Z"
+    },
+    {
+      "case": "formula_literal",
+      "request_id": "demo-formula-001",
+      "name": "Formula Example",
+      "email": "formula@example.test",
+      "phone": "+32 470 00 00 04",
+      "message": "=1+1",
+      "source": "portfolio-demo",
+      "submitted_at": "2026-08-19T08:03:00Z"
+    }
+  ]
+}

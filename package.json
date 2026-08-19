@@ -1,0 +1,13 @@
+{
+  "name": "leadflow-automation-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Sanitized Make.com lead intake and Google Sheets CRM automation demo",
+  "scripts": {
+    "test": "node scripts/validate-demo.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

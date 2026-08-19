@@ -1,0 +1,285 @@
+{
+  "contract_version": "leadflow.crm-adapter.v2",
+  "core_input_spec": [
+    {
+      "name": "request_id",
+      "type": "text",
+      "required": true,
+      "help": "Caller-stable idempotency key"
+    },
+    {
+      "name": "name",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "email",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "phone",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "message",
+      "type": "text",
+      "required": false,
+      "default": "",
+      "multiline": true
+    },
+    {
+      "name": "source",
+      "type": "text",
+      "required": false,
+      "default": "website"
+    },
+    {
+      "name": "submitted_at",
+      "type": "text",
+      "required": false,
+      "default": ""
+    }
+  ],
+  "core_output_spec": [
+    {
+      "name": "request_id",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "outcome",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "reason_code",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "reason",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "environment",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "dry_run",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "committed",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "replayed",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "adapter",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "destination_record_id",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "retryable",
+      "type": "boolean",
+      "required": true
+    }
+  ],
+  "adapter_input_spec": [
+    {
+      "name": "contract_version",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "client_key",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "environment",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "request_id",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "payload_sha256",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "lead_id",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "desired_status",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "name",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "email",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "email_normalized",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "phone",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "phone_normalized",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "message",
+      "type": "text",
+      "required": false,
+      "default": "",
+      "multiline": true
+    },
+    {
+      "name": "source",
+      "type": "text",
+      "required": false,
+      "default": "website"
+    },
+    {
+      "name": "submitted_at",
+      "type": "text",
+      "required": false,
+      "default": ""
+    },
+    {
+      "name": "received_at",
+      "type": "text",
+      "required": true
+    }
+  ],
+  "adapter_output_spec": [
+    {
+      "name": "provider",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "action",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "matched_by",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "record_id",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "record_url",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "final_status",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "committed",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "retryable",
+      "type": "boolean",
+      "required": true
+    },
+    {
+      "name": "error_code",
+      "type": "text",
+      "required": false
+    },
+    {
+      "name": "error_message",
+      "type": "text",
+      "required": false
+    }
+  ],
+  "enums": {
+    "adapter_actions": [
+      "CREATED",
+      "DUPLICATE",
+      "REPLAYED",
+      "REJECTED_SAFE",
+      "UNCERTAIN"
+    ],
+    "matched_by": [
+      "NONE",
+      "REQUEST_ID",
+      "EMAIL"
+    ],
+    "lead_statuses": [
+      "APPROVED",
+      "NEEDS_REVIEW",
+      "DUPLICATE"
+    ]
+  },
+  "sheets_lite": {
+    "provider": "GOOGLE_SHEETS",
+    "sheet_name": "LEADS",
+    "columns": [
+      "Lead_ID",
+      "Request_ID",
+      "Payload_SHA256",
+      "Name",
+      "Email",
+      "Email_Normalized",
+      "Phone",
+      "Phone_Normalized",
+      "Message",
+      "Source",
+      "Submitted_At",
+      "Received_At",
+      "Status",
+      "Created_At",
+      "Updated_At"
+    ]
+  }
+}

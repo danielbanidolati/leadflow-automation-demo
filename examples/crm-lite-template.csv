@@ -1,0 +1,2 @@
+Lead_ID,Request_ID,Payload_SHA256,Name,Email,Email_Normalized,Phone,Phone_Normalized,Message,Source,Submitted_At,Received_At,Status,Created_At,Updated_At
+synthetic-lead-001,demo-valid-001,synthetic-hash-001,Ada Example,ada@example.test,ada@example.test,+32 470 00 00 01,32470000001,Synthetic quote request,portfolio-demo,2026-08-19T08:00:00Z,2026-08-19T08:00:01Z,APPROVED,2026-08-19T08:00:01Z,2026-08-19T08:00:01Z
